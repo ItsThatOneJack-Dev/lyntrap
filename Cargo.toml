@@ -1,0 +1,29 @@
+[package]
+name = "lyntrap"
+version = "0.1.0"
+description = "A full Rust API client for Lyntr, with both sync and async transports!"
+edition = "2024"
+license = "MPL-2.0"
+keywords = ["lyntr", "social-media", "api-client"]
+categories = ["api-bindings", "asynchronous", "web-programming::http-client"]
+
+[package.metadata.docs.rs]
+all-features = true
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+thiserror = "2"
+
+ureq = { version = "2", optional = true, features = ["json"] }
+reqwest = { version = "0.12", optional = true, default-features = false, features = [
+    "json",
+    "multipart",
+    "rustls-tls",
+] }
+tokio = { version = "1", features = ["macros", "rt-multi-thread"] }
+
+[features]
+default = ["async"]
+async = ["dep:reqwest", "dep:tokio"]
+blocking = ["dep:ureq"]
