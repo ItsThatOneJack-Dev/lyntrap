@@ -44,11 +44,7 @@ pub(crate) struct ErrorEnvelope {
 /// body, decide which `Error` variant it is. `request_scope` is the scope
 /// this endpoint required (if any) — used as a fallback when the server's
 /// error body says "insufficient_scope" but doesn't itself say which scope.
-pub(crate) fn error_from_response(
-    status: u16,
-    body: &str,
-    request_scope: Option<&str>,
-) -> Error {
+pub(crate) fn error_from_response(status: u16, body: &str, request_scope: Option<&str>) -> Error {
     match serde_json::from_str::<ErrorEnvelope>(body) {
         Ok(envelope) => {
             let required_scope = envelope
