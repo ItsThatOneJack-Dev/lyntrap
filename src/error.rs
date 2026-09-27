@@ -41,19 +41,29 @@ pub(crate) struct ErrorEnvelope {
 }
 
 /// Shared by both transports: given a non-2xx status and the raw response
-/// body, decide which `Error` variant it is. Pure logic, no ureq/reqwest
-/// types, so it lives here rather than being duplicated per-transport.
-pub(crate) fn error_from_response(status: u16, body: &str) -> Error {
+/// body, decide which `Error` variant it is. `request_scope` is the scope
+/// this endpoint required (if any) — used as a fallback when the server's
+/// error body says "insufficient_scope" but doesn't itself say which scope.
+pub(crate) fn error_from_response(
+    status: u16,
+    body: &str,
+    request_scope: Option<&str>,
+) -> Error {
     match serde_json::from_str::<ErrorEnvelope>(body) {
         Ok(envelope) => {
-            if envelope.error.as_deref() == Some("insufficient_scope") {
-                if let Some(required_scope) = envelope.required_scope {
-                    return Error::InsufficientScope {
-                        required_scope,
-                        message: envelope.message.unwrap_or_else(|| body.to_string()),
-                    };
-                }
+            let required_scope = envelope
+                .required_scope
+                .or_else(|| request_scope.map(str::to_string));
+
+            if envelope.error.as_deref() == Some("insufficient_scope")
+                && let Some(required_scope) = required_scope
+            {
+                return Error::InsufficientScope {
+                    required_scope,
+                    message: envelope.message.unwrap_or_else(|| body.to_string()),
+                };
             }
+
             Error::Api {
                 status,
                 error: envelope.error,

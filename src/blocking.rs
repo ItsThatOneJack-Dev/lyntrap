@@ -27,6 +27,7 @@ impl APIClient {
 
     fn send(&self, req: ApiRequest) -> Result<ureq::Response, Error> {
         let url = self.config.url(&req.path);
+        let scope = req.scope; // capture before req.body gets moved out below
         let mut call = match req.method {
             Method::Get => self.agent.get(&url),
             Method::Post => self.agent.post(&url),
@@ -53,7 +54,7 @@ impl APIClient {
         result.map_err(|e| match e {
             ureq::Error::Status(status, resp) => {
                 let body = resp.into_string().unwrap_or_default();
-                crate::error::error_from_response(status, &body)
+                crate::error::error_from_response(status, &body, scope)
             }
             other => Error::Transport(other.to_string()),
         })

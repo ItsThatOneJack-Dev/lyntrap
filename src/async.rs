@@ -29,6 +29,7 @@ impl APIClient {
 
     async fn send(&self, req: ApiRequest) -> Result<reqwest::Response, Error> {
         let url = self.config.url(&req.path);
+        let scope = req.scope; // capture before req.body gets moved out below
         let method = match req.method {
             Method::Get => ReqwestMethod::GET,
             Method::Post => ReqwestMethod::POST,
@@ -57,7 +58,7 @@ impl APIClient {
         if !resp.status().is_success() {
             let status = resp.status().as_u16();
             let body = resp.text().await.unwrap_or_default();
-            return Err(crate::error::error_from_response(status, &body));
+            return Err(crate::error::error_from_response(status, &body, scope));
         }
         Ok(resp)
     }
