@@ -67,19 +67,19 @@ jobs:
             - uses: dtolnay/rust-toolchain@stable
 
             - name: Package
-                run: cargo package
+              run: cargo package
 
             - name: Rename to a predictable filename
-                run: cp target/package/*.crate lyntrap.crate
+              run: cp target/package/*.crate lyntrap.crate
 
             - name: Attest build provenance
-                uses: actions/attest-build-provenance@v2
-                with:
-                    subject-path: lyntrap.crate
+              uses: actions/attest-build-provenance@v2
+              with:
+                  subject-path: lyntrap.crate
 
             - name: Get short SHA
-                id: sha
-                run: echo "short=$(git rev-parse --short HEAD)" >> "$GITHUB_OUTPUT"
+              id: sha
+              run: echo "short=$(git rev-parse --short HEAD)" >> "$GITHUB_OUTPUT"
 
             - name: Publish per-commit prerelease
               uses: softprops/action-gh-release@v2
@@ -89,7 +89,7 @@ jobs:
                   prerelease: true
                   files: lyntrap.crate
                   body: |
-                    Automated per-commit build. Verify its provenance with:
-                    ```
-                    gh attestation verify lyntrap.crate --owner ItsThatOneJack-Dev
-                    ```
+                      Automated per-commit build. Verify its provenance with:
+```
+                      gh attestation verify lyntrap.crate --owner ItsThatOneJack-Dev
+```
