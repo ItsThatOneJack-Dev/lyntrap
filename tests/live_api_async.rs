@@ -9,14 +9,14 @@ fn client() -> APIClient {
     APIClient::new(id, secret)
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "current_thread")]
 #[ignore]
 async fn get_me_works() {
     let me = client().get_me().await.unwrap();
     assert!(!me.handle.is_empty());
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "current_thread")]
 #[ignore]
 async fn feed_returns_lynts() {
     let feed = client().get_feed(FeedType::New, None).await.unwrap();

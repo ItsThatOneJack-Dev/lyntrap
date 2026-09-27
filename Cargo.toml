@@ -1,11 +1,13 @@
 [package]
 name = "lyntrap"
-version = "0.1.0"
+version = "0.1.1"
 description = "A full Rust API client for Lyntr, with both sync and async transports!"
 edition = "2024"
 license = "MPL-2.0"
 keywords = ["lyntr", "social-media", "api-client"]
 categories = ["api-bindings", "asynchronous", "web-programming::http-client"]
+repository = "https://github.com/ItsThatOneJack-Dev/lyntrap"
+documentation = "https://docs.rs/lyntrap/latest/lyntrap"
 
 [package.metadata.docs.rs]
 all-features = true
@@ -21,7 +23,7 @@ reqwest = { version = "0.12", optional = true, default-features = false, feature
     "multipart",
     "rustls-tls",
 ] }
-tokio = { version = "1", features = ["macros", "rt-multi-thread"] }
+tokio = { version = "1", optional = true, features = ["macros", "rt"] }
 
 [features]
 default = ["async"]

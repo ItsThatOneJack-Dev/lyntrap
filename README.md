@@ -20,7 +20,6 @@ Lyntrap can behave synchronously or asynchronously, depending on what you need! 
 
 If you wish to run a test on Lyntrap, as of today (27th of September, 2026) there are two available, both testing the same thing but on different versions of Lyntrap.
 
-You can use `live_api_async` to perform a full test on the system's ability to communicate with the Lyntr API asynchronously.
-You can use `live_api_blocking` to perform a full test on the system's ability to communicate with the Lyntr API synchronously.
+You can use `live_api_async` to perform a full test on the system's ability to communicate with the Lyntr API asynchronously. Additionally, you can alternatively use `live_api_blocking` to perform a full test on the system's ability to communicate with the Lyntr API synchronously.
 
 When testing either of the above, please set the `LYNTR_CLIENT_ID` and `LYNTR_CLIENT_SECRET` environment variables, this communicates the details to test with to the test script.
