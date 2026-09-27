@@ -52,3 +52,44 @@ jobs:
                   components: rustfmt, clippy
             - run: cargo fmt --check
             - run: cargo clippy --all-features -- -D warnings
+
+    attest-commit:
+        name: Attest & publish per-commit build
+        needs: [check, test]
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        runs-on: ubuntu-latest
+        permissions:
+            contents: write
+            attestations: write
+            id-token: write
+        steps:
+            - uses: actions/checkout@v4
+            - uses: dtolnay/rust-toolchain@stable
+
+            - name: Package
+                run: cargo package
+
+            - name: Rename to a predictable filename
+                run: cp target/package/*.crate lyntrap.crate
+
+            - name: Attest build provenance
+                uses: actions/attest-build-provenance@v2
+                with:
+                    subject-path: lyntrap.crate
+
+            - name: Get short SHA
+                id: sha
+                run: echo "short=$(git rev-parse --short HEAD)" >> "$GITHUB_OUTPUT"
+
+            - name: Publish per-commit prerelease
+              uses: softprops/action-gh-release@v2
+              with:
+                  tag_name: commit-${{ steps.sha.outputs.short }}
+                  name: "Commit ${{ steps.sha.outputs.short }}"
+                  prerelease: true
+                  files: lyntrap.crate
+                  body: |
+                    Automated per-commit build. Verify its provenance with:
+                    ```
+                    gh attestation verify lyntrap.crate --owner ItsThatOneJack-Dev
+                    ```

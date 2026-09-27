@@ -10,14 +10,43 @@ jobs:
         runs-on: ubuntu-latest
         environment: release
         permissions:
-            id-token: write # required for crates.io's OIDC trusted-publishing exchange
+            id-token: write
+            attestations: write
+            contents: write
         steps:
             - uses: actions/checkout@v4
             - uses: dtolnay/rust-toolchain@stable
+
+            - name: Package
+              run: cargo package
+
+            - name: Rename to a predictable filename
+              run: cp target/package/*.crate lyntrap.crate
+
+            - name: Attest build provenance
+              uses: actions/attest-build-provenance@v2
+              with:
+                  subject-path: lyntrap.crate
+
+            - name: Attach attested .crate to this release
+              uses: softprops/action-gh-release@v2
+              with:
+                  tag_name: ${{ github.event.release.tag_name }}
+                  files: lyntrap.crate
+
             - name: Authenticate with crates.io
               id: auth
               uses: rust-lang/crates-io-auth-action@v1
+
             - name: Publish
               run: cargo publish
               env:
                   CARGO_REGISTRY_TOKEN: ${{ steps.auth.outputs.token }}
+
+            - name: Retire the matching per-commit prerelease, if any
+              continue-on-error: true
+              env:
+                  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              run: |
+                  SHA=$(git rev-parse --short HEAD)
+                  gh release delete "commit-$SHA" --yes --cleanup-tag || true

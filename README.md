@@ -1,5 +1,12 @@
 # Lyntrap
 
+[![docs.rs](https://img.shields.io/docsrs/lyntrap?style=for-the-badge&label=DOCS%20BUILD)](https://docs.rs/lyntrap/latest/lyntrap)
+[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/ItsThatOneJack-Dev/lyntrap/ci.yml?style=for-the-badge&label=CODE%20BUILD)](https://github.com/ItsThatOneJack-Dev/lyntrap/actions/)
+
+[![Crates.io Size](https://img.shields.io/crates/size/lyntrap?style=for-the-badge&label=CRATE%20SIZE)](https://crates.io/crates/lyntrap)
+[![GitHub repo size](https://img.shields.io/github/repo-size/ItsThatOneJack-Dev/lyntrap?style=for-the-badge&label=REPO%20SIZE)](https://github.com/ItsThatOneJack-Dev/lyntrap)
+[![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/ItsThatOneJack-Dev/lyntrap?style=for-the-badge&label=CODE%20SIZE)](https://github.com/ItsThatOneJack-Dev/lyntrap)
+
 Lyntrap is a fully-fledged Rust API client for the social media [Lyntr](https://lyntr.gizmowizard.tech/)!
 
 The name is a bit unusual, there are multiple "correct" (liguistic presciptivism can be bad) ways to say it, I (ItsThatOneJack) officially approve:
@@ -14,7 +21,7 @@ Or, for you contrarians:
 
 ---
 
-You can see the Lyntrap documentation on [`docs.rs`](https://docs.rs/lyntrap/latest/lyntrap)!
+You can see the Lyntrap documentation on [docs.rs](https://docs.rs/lyntrap/latest/lyntrap)!
 
 Happy Lynting!
 
