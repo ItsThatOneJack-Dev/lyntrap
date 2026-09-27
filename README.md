@@ -12,6 +12,12 @@ Or, for you contrarians:
 - "Lyn trap"
 - "Lynt rap"
 
+---
+
+You can see the Lyntrap documentation on [`docs.rs`](https://docs.rs/lyntrap/latest/lyntrap)!
+
+Happy Lynting!
+
 ## Synchronicity
 
 Lyntrap can behave synchronously or asynchronously, depending on what you need! By default, it ships only able to behave asynchronously, however if you want synchronous behaviour, you can use it by simply installing it with the optional feature `blocking`.
