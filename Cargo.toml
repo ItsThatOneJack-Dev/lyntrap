@@ -1,6 +1,6 @@
 [package]
 name = "lyntrap"
-version = "1.0.0"
+version = "1.0.1"
 description = "A full Rust API client for Lyntr, with both sync and async transports!"
 edition = "2024"
 license = "MPL-2.0"
