@@ -1,0 +1,54 @@
+name: CI
+
+on:
+    push:
+        branches: [main]
+    pull_request:
+        branches: [main]
+
+env:
+    CARGO_TERM_COLOR: always
+
+jobs:
+    check:
+        name: cargo check (${{ matrix.features }})
+        runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                features:
+                    - "default (async)"
+                    - "blocking only"
+                    - "both"
+                include:
+                    - features: "default (async)"
+                      flags: ""
+                    - features: "blocking only"
+                      flags: "--no-default-features --features blocking"
+                    - features: "both"
+                      flags: '--no-default-features --features "blocking async"'
+        steps:
+            - uses: actions/checkout@v4
+            - uses: dtolnay/rust-toolchain@stable
+            - run: cargo check ${{ matrix.flags }}
+
+    test:
+        name: cargo test
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+            - uses: dtolnay/rust-toolchain@stable
+            - run: cargo test
+              # tests/live_api_*.rs are all #[ignore]d and need LYNTR_CLIENT_ID/SECRET,
+              # which this workflow deliberately never has — they're a manual, local-only
+              # smoke test against the real API, not something to run against every PR.
+
+    lint:
+        name: fmt + clippy
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+            - uses: dtolnay/rust-toolchain@stable
+              with:
+                  components: rustfmt, clippy
+            - run: cargo fmt --check
+            - run: cargo clippy --all-features -- -D warnings
