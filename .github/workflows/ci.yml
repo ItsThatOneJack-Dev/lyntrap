@@ -88,8 +88,4 @@ jobs:
                   name: "Commit ${{ steps.sha.outputs.short }}"
                   prerelease: true
                   files: lyntrap.crate
-                  body: |
-                      Automated per-commit build. Verify its provenance with:
-```
-                      gh attestation verify lyntrap.crate --owner ItsThatOneJack-Dev
-```
+                  body: "Automated per-commit build. Verify its provenance with: `gh attestation verify lyntrap.crate --owner ItsThatOneJack-Dev`"
