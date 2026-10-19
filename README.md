@@ -7,6 +7,20 @@
 [![GitHub repo size](https://img.shields.io/github/repo-size/ItsThatOneJack-Dev/lyntrap?style=for-the-badge&label=REPO%20SIZE)](https://github.com/ItsThatOneJack-Dev/lyntrap)
 [![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/ItsThatOneJack-Dev/lyntrap?style=for-the-badge&label=CODE%20SIZE)](https://github.com/ItsThatOneJack-Dev/lyntrap)
 
+> [!WARNING]
+> Lyntrap is deprecated as of version 0.1.2 on the 19th of October, 2026, and will no longer receive any updates.
+
+> [!TIP]
+> If you are looking for Lyntrap's functionality, I would recommend `lyntr-rs`, which is [available on crates.io](https://crates.io/crates/lyntr-rs), it behaves much more predictably and is a great deal more stable than Lyntrap has ever been.
+
+---
+
+> [!CAUTION]
+> Lyntrap was designed solely to be used in Termynter, but during the planning phase I realised its potential use by others, and decided to release it as its own project, but with no guarantees.
+
+> [!NOTE]
+> It is known that Lyntrap fails on some endpoints, this has been determined to be due to issues parsing response bodies, no other information is known, as work on fixing it has been halted due to the deprecation of Lyntrap.
+
 Lyntrap is a fully-fledged Rust API client for the social media [Lyntr](https://lyntr.gizmowizard.tech/)!
 
 The name is a bit unusual, there are multiple "correct" (liguistic presciptivism can be bad) ways to say it, I (ItsThatOneJack) officially approve:
