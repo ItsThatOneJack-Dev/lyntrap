@@ -9,6 +9,7 @@
 
 > [!WARNING]
 > Lyntrap is deprecated as of version 0.1.2 on the 19th of October, 2026, and will no longer receive any updates.
+> As part of this deprecation, I hereby release version 0.1.2 of Lyntrap under the MIT license, instead of the MPL license as was previously used.
 
 > [!TIP]
 > If you are looking for Lyntrap's functionality, I would recommend `lyntr-rs`, which is [available on crates.io](https://crates.io/crates/lyntr-rs), it behaves much more predictably and is a great deal more stable than Lyntrap has ever been.
