@@ -1,5 +1,8 @@
 # Security Policy
 
+> [!NOTE]
+> Lyntrap is deprecated, security vulnerabilities may not be handled and support may not be offered, please use this software with caution knowing that it may contain security vulnerabilities.
+
 This file was generated from a template, some of it might be way off, like WAYY off, however I am putting this here mainly for formality, if you know a bug in my code, and it is likely a security issue, just make a disclosure with the steps in this file, PLEASE **DONT OPEN AN ISSUE**, IF IT IS A SECURITY CONCERN THEN OPENING AN ISSUE WILL JUST PUBLICISE THE METHOD FOR REPLICATING IT!
 
 ## Supported Versions
